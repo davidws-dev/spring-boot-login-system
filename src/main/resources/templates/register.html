@@ -75,15 +75,10 @@
                 <span class="w-2 h-2 bg-volt inline-block"></span> REGISTO_DE_OPERADOR
             </h2>
 
-            <div th:if="${error}" class="mb-6 bg-red-950/30 border-2 border-red-500 p-4 text-xs text-red-400 font-bold uppercase tracking-wider shadow-brutalError" th:text="${error}">
-                [ERRO] FALHA_NO_REGISTO.
-            </div>
+            <div th:if="${error}" class="mb-6 bg-red-950/30 border-2 border-red-500 p-4 text-xs text-red-400 font-bold uppercase tracking-wider shadow-brutalError" th:text="${error}"></div>
+            <div th:if="${success}" class="mb-6 bg-green-950/30 border-2 border-green-500 p-4 text-xs text-green-400 font-bold uppercase tracking-wider shadow-brutalSuccess" th:text="${success}"></div>
 
-            <div th:if="${success}" class="mb-6 bg-green-950/30 border-2 border-green-500 p-4 text-xs text-green-400 font-bold uppercase tracking-wider shadow-brutalSuccess" th:text="${success}">
-                [OK] OPERADOR_REGISTADO_COM_SUCESSO.
-            </div>
-
-            <form th:action="@{/register}" method="post" class="space-y-6">
+            <form th:action="@{/register}" method="post" class="space-y-6" autocomplete="off">
 
                 <div class="space-y-2">
                     <label for="name" class="text-xs uppercase tracking-widest text-rawMuted font-bold block">
@@ -93,6 +88,7 @@
                            id="name"
                            name="name"
                            required
+                           autocomplete="off"
                            placeholder="Identificação do Operador"
                            class="w-full bg-rawBg border-2 border-rawBorder p-4 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:border-volt focus:ring-0 transition-colors font-mono">
                 </div>
@@ -105,6 +101,7 @@
                            id="email"
                            name="email"
                            required
+                           autocomplete="off"
                            placeholder="nome@dominio.com"
                            class="w-full bg-rawBg border-2 border-rawBorder p-4 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:border-volt focus:ring-0 transition-colors font-mono">
                 </div>
@@ -117,6 +114,7 @@
                            id="password"
                            name="password"
                            required
+                           autocomplete="new-password"
                            placeholder="••••••••••••"
                            class="w-full bg-rawBg border-2 border-rawBorder p-4 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:border-volt focus:ring-0 transition-colors">
                 </div>
@@ -126,6 +124,10 @@
                     GRAVAR_REGISTO >>
                 </button>
             </form>
+
+            <script th:if="${success}">
+                document.querySelector('form').reset();
+            </script>
 
             <div class="mt-8 pt-6 border-t border-rawBorder text-center">
                 <p class="text-xs text-rawMuted uppercase">

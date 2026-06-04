@@ -37,9 +37,10 @@ public class SecurityConfig {
                         .permitAll()
                 );
 
-        // ATENÇÃO: Estas duas linhas abaixo servem APENAS para podermos aceder à consola do H2 no browser.
-        // Em produção, isto nunca deve ser feito desta forma.
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"));
+        // CORREÇÃO AQUI: Adicionado o "/register" para ignorar o CSRF, caso contrário o Spring bloqueia o envio do formulário.
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**", "/register"));
+
+        // Mantém a consola do H2 funcional dentro de frames
         http.headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()));
 
         return http.build();

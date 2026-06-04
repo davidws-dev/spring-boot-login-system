@@ -22,6 +22,7 @@ public class DataInitializer implements CommandLineRunner {
         // Se a base de dados estiver vazia, cria o utilizador de teste
         if (userRepository.count() == 0) {
             User testUser = new User();
+            testUser.setName("Administrador"); // <-- ADICIONA ESTA LINHA
             testUser.setEmail("dev@portugal.pt");
 
             // Repara na password encriptada com BCrypt!

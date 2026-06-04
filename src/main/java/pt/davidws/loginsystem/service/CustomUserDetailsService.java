@@ -1,8 +1,6 @@
 package pt.davidws.loginsystem.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 import pt.davidws.loginsystem.domain.User;
 import pt.davidws.loginsystem.repository.UserRepository;
@@ -18,9 +16,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // Agora utiliza o método com IgnoreCase
         User user = userRepository.findByEmailIgnoreCase(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Utilizador não encontrado com o email: " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("Utilizador não encontrado"));
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getEmail())
