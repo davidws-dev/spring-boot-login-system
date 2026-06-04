@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTH_CORE // Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Syne', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    colors: {
+                        rawBg: '#090A0C',
+                        rawCard: '#111317',
+                        volt: '#CCFF00',
+                        rawBorder: '#22262F',
+                        rawMuted: '#626875'
+                    },
+                    boxShadow: {
+                        brutal: '4px 4px 0px 0px #CCFF00',
+                        brutalError: '4px 4px 0px 0px #FF3333',
+                        brutalMuted: '4px 4px 0px 0px #22262F',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .animate-fade-in {
+            opacity: 0;
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-rawBg text-white font-mono min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-volt selection:text-black">
+
+<header class="w-full border-b border-rawBorder p-4 flex justify-between items-center text-xs tracking-widest text-rawMuted uppercase">
+    <div>SYS_STATUS: <span class="text-volt animate-pulse">ACTIVE // ONLINE</span></div>
+    <div class="hidden sm:block">LOC: VNG_PRT_2026</div>
+</header>
+
+<main class="w-full max-w-6xl mx-auto px-4 py-12 flex flex-col lg:flex-row items-center justify-between gap-12 flex-grow">
+    <div class="w-full lg:w-1/2 translate-y-4 animate-fade-in" style="animation-delay: 100ms;">
+        <span class="text-volt text-xs font-bold uppercase tracking-widest block mb-3">// GATEWAY_ACCESS</span>
+        <h1 class="font-display text-5xl md:text-7xl font-extrabold uppercase tracking-tighter leading-none mb-6">
+            Control <br><span class="text-transparent webkit-text-stroke text-white opacity-30">Your</span> Data.
+        </h1>
+        <p class="text-rawMuted max-w-md text-sm leading-relaxed">
+            Sistema de autenticação centralizado de alto desempenho. Introduza credenciais para aceder aos recursos isolados da infraestrutura.
+        </p>
+    </div>
+
+    <div class="w-full lg:w-5/12 translate-y-4 animate-fade-in" style="animation-delay: 200ms;">
+        <div class="bg-rawCard border-2 border-rawBorder p-8 md:p-10 relative shadow-brutalMuted transition-all duration-300 hover:shadow-brutal hover:border-volt group">
+            <div class="absolute -top-2 -left-2 w-4 h-4 bg-rawBg border-2 border-rawBorder group-hover:border-volt transition-colors"></div>
+
+            <h2 class="text-xl font-bold uppercase tracking-tight mb-8 flex items-center gap-2">
+                <span class="w-2 h-2 bg-volt inline-block"></span> AUTENTICAÇÃO_UTILIZADOR
+            </h2>
+
+            <div th:if="${param.error}" class="mb-6 bg-red-950/30 border-2 border-red-500 p-4 text-xs text-red-400 font-bold uppercase tracking-wider shadow-brutalError">
+                [ERRO] CREDENCIAIS_INVALIDAS. REVEJA O INPUT E TENTE NOVAMENTE.
+            </div>
+
+            <div th:if="${param.logout}" class="mb-6 bg-zinc-900 border-2 border-white p-4 text-xs text-volt font-bold uppercase tracking-wider shadow-brutal">
+                [OK] SESSÃO_ENCERRADA_COM_SUCESSO. TERMINAL_SEGURO.
+            </div>
+
+            <form th:action="@{/login}" method="post" class="space-y-6">
+                <div class="space-y-2">
+                    <label for="username" class="text-xs uppercase tracking-widest text-rawMuted font-bold block">
+                        01 // ENDEREÇO_EMAIL
+                    </label>
+                    <input type="email" id="username" name="email" required placeholder="nome@dominio.com" class="w-full bg-rawBg border-2 border-rawBorder p-4 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:border-volt focus:ring-0 transition-colors font-mono">
+                </div>
+
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <label for="password" class="text-xs uppercase tracking-widest text-rawMuted font-bold block">
+                            02 // PALAVRA_PASSE
+                        </label>
+                    </div>
+                    <input type="password" id="password" name="password" required placeholder="••••••••••••" class="w-full bg-rawBg border-2 border-rawBorder p-4 text-sm text-white placeholder:text-zinc-700 focus:outline-none focus:border-volt focus:ring-0 transition-colors">
+                </div>
+
+                <button type="submit" class="w-full bg-white text-black font-bold uppercase tracking-widest py-4 px-6 text-sm border-2 border-white hover:bg-volt hover:border-volt hover:-translate-y-1 hover:translate-x-1 active:translate-y-0 active:translate-x-0 transition-all duration-200 cursor-pointer shadow-brutalMuted hover:shadow-brutal font-mono">
+                    EXECUTAR_LOGIN >>
+                </button>
+            </form>
+
+            <div class="mt-8 pt-6 border-t border-rawBorder text-center">
+                <p class="text-xs text-rawMuted uppercase">
+                    Novo operador? <a th:href="@{/register}" class="text-white hover:text-volt font-bold underline underline-offset-4 transition-colors">Criar conta_</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="w-full border-t border-rawBorder p-4 text-center text-[10px] tracking-widest text-rawMuted uppercase">
+    &copy; 2026 AUTH_CORE INC. TODOS OS DIREITOS RESERVADOS.
+</footer>
+</body>
+</html>

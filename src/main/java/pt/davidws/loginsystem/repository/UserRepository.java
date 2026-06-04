@@ -7,8 +7,8 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    // O Spring cria o SQL "SELECT * FROM users WHERE email = ?" automaticamente!
-    Optional<User> findByEmail(String email);
+    // Atualizado para ignorar maiúsculas/minúsculas
+    Optional<User> findByEmailIgnoreCase(String email);
 
     Optional<User> findByPasswordResetToken(String token);
 }

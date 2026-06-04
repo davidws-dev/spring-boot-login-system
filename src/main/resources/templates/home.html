@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORE_SYS // Painel Principal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Syne', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    colors: {
+                        rawBg: '#090A0C',
+                        rawCard: '#111317',
+                        volt: '#CCFF00',
+                        rawBorder: '#22262F',
+                        rawMuted: '#626875'
+                    },
+                    boxShadow: {
+                        brutal: '4px 4px 0px 0px #CCFF00',
+                        brutalDanger: '4px 4px 0px 0px #FF3333',
+                        brutalMuted: '4px 4px 0px 0px #22262F',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-rawBg text-white font-mono min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-volt selection:text-black">
+
+<nav class="w-full border-b border-rawBorder bg-rawCard px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <div class="flex items-center gap-3">
+        <div class="w-3 h-3 bg-volt border border-black animate-pulse"></div>
+        <span class="font-display font-bold tracking-tight text-lg uppercase">CORE_DASHBOARD // V.1</span>
+    </div>
+
+    <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto justify-end">
+        <div class="bg-rawBg border border-rawBorder px-3 py-1.5 text-xs text-rawMuted uppercase tracking-wider flex items-center gap-2">
+            <span class="text-white text-[10px] bg-zinc-800 px-1 py-0.5">// OPERATOR:</span>
+            <span class="text-volt font-bold" th:text="${email}">usuario@email.com</span>
+        </div>
+
+        <form th:action="@{/logout}" method="POST" class="w-full sm:w-auto">
+            <button type="submit" class="w-full sm:w-auto bg-transparent border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white font-bold text-xs uppercase tracking-widest px-4 py-1.5 transition-all duration-150 cursor-pointer shadow-brutalMuted hover:shadow-brutalDanger hover:-translate-y-0.5 active:translate-y-0">
+                TERMINAR_SESSÃO_
+            </button>
+        </form>
+    </div>
+</nav>
+
+<main class="w-full max-w-4xl mx-auto px-4 py-12 flex-grow flex items-center justify-center">
+    <div class="w-full bg-rawCard border-2 border-rawBorder p-8 md:p-12 relative shadow-brutalMuted animate-fade-in">
+        <div class="absolute top-0 right-0 border-b border-l border-rawBorder px-3 py-1 text-[9px] text-rawMuted tracking-widest uppercase">
+            SEC_LEVEL_01 // ENCRYPTED
+        </div>
+
+        <div class="text-center max-w-2xl mx-auto">
+            <div class="inline-block text-4xl p-4 bg-rawBg border border-rawBorder mb-6 relative group">
+                <span class="absolute -top-1 -left-1 w-2 h-2 bg-volt"></span>
+                👋 🇵🇹
+            </div>
+
+            <h1 class="font-display text-4xl md:text-6xl font-extrabold uppercase tracking-tighter leading-none mb-6">
+                Acesso <br><span class="text-volt">Garantido.</span>
+            </h1>
+
+            <div class="w-full flex items-center justify-center gap-2 my-6">
+                <div class="h-[2px] bg-rawBorder flex-grow"></div>
+                <div class="w-2 h-2 bg-volt"></div>
+                <div class="h-[2px] bg-rawBorder flex-grow"></div>
+            </div>
+
+            <p class="text-rawMuted text-sm leading-relaxed mb-8 max-w-lg mx-auto">
+                O teu login no ecossistema <span class="text-white border-b border-dashed border-volt">Spring Boot 3.x</span> foi efetuado com absoluto sucesso. As chaves criptográficas da sessão foram validadas contra a infraestrutura de dados isolada.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 bg-rawBg border border-rawBorder p-4 text-left text-[11px] text-rawMuted uppercase">
+                <div>[AMBIENTE] <span class="text-white block font-bold">PRODUÇÃO</span></div>
+                <div>[LIGADO_A] <span class="text-white block font-bold">H2_MEM_DB</span></div>
+                <div class="col-span-2 md:col-span-1">[PROTOCOLO] <span class="text-volt block font-bold">OAUTH2 / OIDC_READY</span></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="w-full border-t border-rawBorder p-4 flex flex-col sm:flex-row justify-between items-center text-[10px] tracking-widest text-rawMuted uppercase bg-rawCard px-6">
+    <div>&copy; 2026 AUTH_CORE INC. SYSTEM_SECURE_OVERVIEW</div>
+    <div class="hidden sm:block">HOST: LOCALGRID_8081</div>
+</footer>
+
+</body>
+</html>

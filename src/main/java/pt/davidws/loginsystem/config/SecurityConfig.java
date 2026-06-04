@@ -22,7 +22,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/forgot-password", "/reset-password", "/h2-console/**").permitAll() // Páginas públicas
+                        .requestMatchers("/login", "/register", "/forgot-password", "/reset-password", "/h2-console/**").permitAll() // Páginas públicas
                         .anyRequest().authenticated() // Tudo o resto exige login
                 )
                 .formLogin(form -> form
